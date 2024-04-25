@@ -8,27 +8,28 @@ import com.syndicate.deployment.model.RetentionSetting;
 import com.syndicate.deployment.model.lambda.url.AuthType;
 import com.syndicate.deployment.model.lambda.url.InvokeMode;
 
-import javax.ws.rs.Path;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Path("hello")
 @LambdaUrlConfig(
 		authType = AuthType.NONE,
 		invokeMode = InvokeMode.BUFFERED
 )
 @LambdaHandler(lambdaName = "hello_world",
 	roleName = "hello_world-role",
-	isPublishVersion = true,
+	isPublishVersion = false,
 	logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
-public class HelloWorld implements RequestHandler<Object, Map<String, Object>> {
+public class HelloWorld implements RequestHandler<Object, String> {
 
-	public Map<String, Object> handleRequest(Object request, Context context) {
+	public String handleRequest(Object request, Context context) {
 		System.out.println("Hello from lambda");
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("statusCode", 200);
-		resultMap.put("message", "Hello from Lambda");
-		return resultMap;
+		Map<String, Object> resultMap = new LinkedHashMap<>();
+//		resultMap.put("body", "{\"statusCode\": 200, \"message\": \"Hello from Lambda\"}");
+//		resultMap.put("headers", "{\"contentType\": application/json}");
+//		resultMap.put("message", "Hello from Lambda");
+//		resultMap.put("statusCode", 200);
+		return "{\"statusCode\": 200, \"message\": \"Hello from Lambda\"}";
 	}
 }
