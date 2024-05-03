@@ -37,7 +37,7 @@
     "resource_type": "iam_role"
   },
   "sns_handler-role": {
-    "predefined_policies": [],
+    "predefined_policies": ["AmazonSNSRole"],
     "principal_service": "lambda",
     "custom_policies": [
       "lambda-basic-execution"
@@ -60,6 +60,7 @@
   "lambda_topic": {
     "resource_type": "sns_topic",
     "region": "eu-central-1",
-    "event_sources": []
+    "event_sources": [],
+    "dependencies": [      {        "resource_name": "sns_handler-role",        "resource_type": "iam_role"      }    ]
   }
 }
