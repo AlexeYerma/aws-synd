@@ -13,8 +13,7 @@ import java.util.Map;
 
 @LambdaHandler(lambdaName = "sqs_handler",
 	roleName = "sqs_handler-role",
-	isPublishVersion = true,
-	aliasName = "${lambdas_alias_name}",
+	isPublishVersion = false,
 	logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
 @SqsTriggerEventSource(

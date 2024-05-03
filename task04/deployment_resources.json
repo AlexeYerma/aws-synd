@@ -14,9 +14,7 @@
             "dynamodb:DeleteItem",
             "ssm:PutParameter",
             "ssm:GetParameter",
-            "kms:Decrypt",
-            "sqs:*",
-            "sns:*"
+            "kms:Decrypt"
           ],
           "Effect": "Allow",
           "Resource": "*"
@@ -34,7 +32,10 @@
     "custom_policies": [
       "lambda-basic-execution"
     ],
-    "resource_type": "iam_role"
+    "resource_type": "iam_role",
+    "allowed_accounts": [
+      "${account_id}"
+    ]
   },
   "sns_handler-role": {
     "predefined_policies": ["AmazonSNSRole"],
@@ -42,7 +43,10 @@
     "custom_policies": [
       "lambda-basic-execution"
     ],
-    "resource_type": "iam_role"
+    "resource_type": "iam_role",
+    "allowed_accounts": [
+      "${account_id}"
+    ]
   },
   "async_queue": {
     "resource_type": "sqs_queue",
