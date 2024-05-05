@@ -53,16 +53,18 @@ public class ApiHandler implements RequestHandler<Request, Map<String, Object>> 
 			var principal = request.getPrincipalId();
 			item.withString("id", uuid.toString());
 			item.withInt("principalId", principal);
-			item.withMap("body", request.getContent());
+			var content =  request.getContent();
+			item.withMap("body", content);
+			context.getLogger().log("Content: " + content);
 			item.withString("createdAt", ZonedDateTime.now( ZoneOffset.UTC ).format( DateTimeFormatter.ISO_INSTANT ));
-
+			var result = item.asMap();
 			Table table = dynamoDB.getTable(DYNAMODB_TABLE_NAME);
 			PutItemOutcome outcome = table.putItem(item);
 			context.getLogger().log("PutItem succeeded: " + outcome.getPutItemResult());
 
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			resultMap.put("statusCode", 201);
-			resultMap.put("event", outcome.getItem());
+			resultMap.put("event", result);
 			return resultMap;
 
 		} catch (Exception e) {
