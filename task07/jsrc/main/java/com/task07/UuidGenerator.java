@@ -45,18 +45,18 @@ public class UuidGenerator implements RequestHandler<Object, Map<String, Object>
 
 	public Map<String, Object> handleRequest(Object request, Context context) {
 		List uuids = List.of(
-				UUID.randomUUID(),
-				UUID.randomUUID(),
-				UUID.randomUUID(),
-				UUID.randomUUID(),
-				UUID.randomUUID(),
-				UUID.randomUUID(),
-				UUID.randomUUID(),
-				UUID.randomUUID(),
-				UUID.randomUUID(),
-				UUID.randomUUID());
+				"'" + UUID.randomUUID() + "'",
+				"'" + UUID.randomUUID() + "'",
+				"'" + UUID.randomUUID() + "'",
+				"'" + UUID.randomUUID() + "'",
+				"'" + UUID.randomUUID() + "'",
+				"'" + UUID.randomUUID() + "'",
+				"'" + UUID.randomUUID() + "'",
+				"'" + UUID.randomUUID() + "'",
+				"'" + UUID.randomUUID() + "'",
+				"'" + UUID.randomUUID() + "'");
 
-		String result = "{\"ids\":" + uuids + "}".replaceAll("\"", "'");
+		String result = "{'ids':" + uuids + "}".replaceAll("\"", "'");
 
 		System.out.println("Hello from lambda");
 		String name = ZonedDateTime.now( ZoneOffset.UTC ).format( DateTimeFormatter.ISO_INSTANT );
