@@ -65,8 +65,8 @@ public class AuditProducer implements RequestHandler<DynamodbEvent, Map<String, 
 				item.withJSON("newValue", json);
 			} else {
 				item.withString("updatedAttribute", "value");
-				item.withString("oldValue", record.getDynamodb().getOldImage().get("value").getN());
-				item.withString("newValue", record.getDynamodb().getNewImage().get("value").getN());
+				item.withInt("oldValue", Integer.valueOf(record.getDynamodb().getOldImage().get("value").getN()));
+				item.withInt("newValue", Integer.valueOf(record.getDynamodb().getNewImage().get("value").getN()));
 			}
 			Table table = dynamoDB.getTable(DYNAMODB_TABLE_NAME);
 			PutItemOutcome outcome = table.putItem(item);
