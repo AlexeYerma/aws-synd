@@ -12,6 +12,8 @@ import com.syndicate.deployment.annotations.lambda.LambdaHandler;
 import com.syndicate.deployment.annotations.resources.DependsOn;
 import com.syndicate.deployment.model.ResourceType;
 import com.syndicate.deployment.model.RetentionSetting;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -44,19 +46,30 @@ public class UuidGenerator implements RequestHandler<Object, Map<String, Object>
 	private String BUCKET_NAME = "cmtr-aed3c045-uuid-storage-test";
 
 	public Map<String, Object> handleRequest(Object request, Context context) {
-		List uuids = List.of(
-				"'" + UUID.randomUUID() + "'",
-				"'" + UUID.randomUUID() + "'",
-				"'" + UUID.randomUUID() + "'",
-				"'" + UUID.randomUUID() + "'",
-				"'" + UUID.randomUUID() + "'",
-				"'" + UUID.randomUUID() + "'",
-				"'" + UUID.randomUUID() + "'",
-				"'" + UUID.randomUUID() + "'",
-				"'" + UUID.randomUUID() + "'",
-				"'" + UUID.randomUUID() + "'");
+//		List uuids = List.of(
+//				"'" + UUID.randomUUID() + "'",
+//				"'" + UUID.randomUUID() + "'",
+//				"'" + UUID.randomUUID() + "'",
+//				"'" + UUID.randomUUID() + "'",
+//				"'" + UUID.randomUUID() + "'",
+//				"'" + UUID.randomUUID() + "'",
+//				"'" + UUID.randomUUID() + "'",
+//				"'" + UUID.randomUUID() + "'",
+//				"'" + UUID.randomUUID() + "'",
+//				"'" + UUID.randomUUID() + "'");
+//
+//		String result = "{'ids':" + uuids + "}".replaceAll("\"", "'");
 
-		String result = "{'ids':" + uuids + "}".replaceAll("\"", "'");
+
+		List<String> uuids = generateUUIDs(10);
+
+		// Create JSON object
+		JSONObject jsonObject = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		jsonArray.addAll(uuids);
+		jsonObject.put("ids", jsonArray);
+
+		String result = jsonObject.toString();
 
 		System.out.println("Hello from lambda");
 		String name = ZonedDateTime.now( ZoneOffset.UTC ).format( DateTimeFormatter.ISO_INSTANT );
@@ -77,5 +90,13 @@ public class UuidGenerator implements RequestHandler<Object, Map<String, Object>
 		resultMap.put("statusCode", 200);
 		resultMap.put("name", name);
 		return resultMap;
+	}
+
+	private static List<String> generateUUIDs(int count) {
+		List<String> uuids = new ArrayList<>();
+		for (int i = 0; i < count; i++) {
+			uuids.add(UUID.randomUUID().toString());
+		}
+		return uuids;
 	}
 }
