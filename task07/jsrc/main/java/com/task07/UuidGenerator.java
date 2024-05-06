@@ -65,7 +65,7 @@ public class UuidGenerator implements RequestHandler<Object, Map<String, Object>
 
 		try (InputStream inputStream = new ByteArrayInputStream(result.getBytes(StandardCharsets.UTF_8))) {
 			ObjectMetadata metadata = new ObjectMetadata();
-			metadata.setContentLength((uuids.toString().getBytes(StandardCharsets.UTF_8).length));
+			metadata.setContentLength(result.length());
 
 			PutObjectRequest putRequest = new PutObjectRequest(BUCKET_NAME, name, inputStream, metadata);
 			s3Client.putObject(putRequest);
