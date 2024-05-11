@@ -41,13 +41,13 @@ import java.util.Map;
 		architectures = {Architecture.ARM64},
 		artifactExtension = ArtifactExtension.ZIP
 )
-public class ApiHandler implements RequestHandler<Object, Map<String, Object>> {
+public class ApiHandler implements RequestHandler<Object, String> {
 
 
 	private static final HttpClient httpClient = HttpClient.newHttpClient();
 	private static final String OPEN_METEO_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m"; // Replace with actual Open-Meteo API URL
 
-	public Map<String, Object> handleRequest(Object request, Context context) {
+	public String handleRequest(Object request, Context context) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -57,13 +57,15 @@ public class ApiHandler implements RequestHandler<Object, Map<String, Object>> {
 
 			HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
-			// For simplicity, we are putting the entire response into the body. In a real application, you'd probably parse the response and format it nicely.
-			resultMap.put("statusCode", httpResponse.statusCode());
-			resultMap.put("body", httpResponse.body());
+
+			return httpResponse.body().replaceAll("\\\"", "\"");
+			// For simplicity, we are putting the en"tire response into the body. In a real application, you'd probably parse the response and format it nicely.
+//			resultMap.put("statusCode", httpResponse.statusCode());
+//			resultMap.put("body", httpResponse.body());
 		} catch (IOException | InterruptedException e) {
 			resultMap.put("statusCode", 500);
 			resultMap.put("body", "Error while retrieving the weather forecast: " + e.getMessage());
 		}
-		return resultMap;
+		return "resultMap";
 	}
 }
