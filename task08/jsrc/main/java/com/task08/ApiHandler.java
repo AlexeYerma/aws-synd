@@ -45,7 +45,7 @@ public class ApiHandler implements RequestHandler<Object, Map<String, Object>> {
 
 
 	private static final HttpClient httpClient = HttpClient.newHttpClient();
-	private static final String OPEN_METEO_API_URL = "https://api.open-meteo.com/v1/forecast"; // Replace with actual Open-Meteo API URL
+	private static final String OPEN_METEO_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m"; // Replace with actual Open-Meteo API URL
 
 	public Map<String, Object> handleRequest(Object request, Context context) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
