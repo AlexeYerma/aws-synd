@@ -13,7 +13,6 @@ import com.syndicate.deployment.annotations.lambda.LambdaHandler;
 import com.syndicate.deployment.annotations.lambda.LambdaLayer;
 import com.syndicate.deployment.annotations.lambda.LambdaUrlConfig;
 import com.syndicate.deployment.model.Architecture;
-import com.syndicate.deployment.model.ArtifactExtension;
 import com.syndicate.deployment.model.DeploymentRuntime;
 import com.syndicate.deployment.model.RetentionSetting;
 import com.syndicate.deployment.model.lambda.url.AuthType;
@@ -36,10 +35,11 @@ import java.util.Map;
 )
 @LambdaLayer(
 		layerName = "sdk-layer",
-		libraries = {"lib/commons-lang3-3.14.0.jar", "lib/gson-2.10.1.jar"},
+//		libraries = {"target/original-task08-1.0.0.jar"},
+		libraries = {"lib/commons-lang3-3.14.0.jar"},
 		runtime = DeploymentRuntime.JAVA11,
-		architectures = {Architecture.ARM64},
-		artifactExtension = ArtifactExtension.ZIP
+		architectures = {Architecture.ARM64}
+//		artifactExtension = ArtifactExtension.ZIP
 )
 public class ApiHandler implements RequestHandler<Object, String> {
 
