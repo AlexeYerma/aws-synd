@@ -18,11 +18,6 @@ import com.syndicate.deployment.model.lambda.url.AuthType;
 import com.syndicate.deployment.model.lambda.url.InvokeMode;
 import org.apache.commons.lang3.StringUtils;
 
-
-@DependsOn(
-		name = "sdk-layer",
-		resourceType = ResourceType.LAMBDA_LAYER
-)
 @LambdaHandler(
 		lambdaName = "api_handler",
 		roleName = "api_handler-role",
@@ -43,6 +38,10 @@ import org.apache.commons.lang3.StringUtils;
 @LambdaUrlConfig(
 		authType = AuthType.NONE,
 		invokeMode = InvokeMode.BUFFERED
+)
+@DependsOn(
+		name = "sdk-layer",
+		resourceType = ResourceType.LAMBDA_LAYER
 )
 public class ApiHandler implements RequestHandler<Object, String> {
 
