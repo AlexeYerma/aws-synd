@@ -31,6 +31,21 @@
             <artifactId>deployment-configuration-annotations</artifactId>
             <version>${syndicate.java.plugin.version}</version>
         </dependency>
+        <!--Custom dependencies (for sdk layer)-->
+        <dependency>
+            <groupId>demo.custom.sdk</groupId>
+            <artifactId>commons-lang3-downloaded-library</artifactId>
+            <version>3.14.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/commons-lang3-3.14.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>demo.custom.sdk</groupId>
+            <artifactId>gson-downloaded-library</artifactId>
+            <version>2.10.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/gson-2.10.1.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
@@ -89,6 +104,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 
