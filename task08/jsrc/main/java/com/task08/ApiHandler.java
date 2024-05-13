@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.google.gson.Gson;
 import com.syndicate.deployment.annotations.lambda.LambdaHandler;
 import com.syndicate.deployment.annotations.lambda.LambdaLayer;
 import com.syndicate.deployment.annotations.lambda.LambdaUrlConfig;
@@ -51,8 +52,7 @@ public class ApiHandler implements RequestHandler<Object, String> {
 	public String handleRequest(Object request, Context context) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			String mock = StringUtils.EMPTY;
-			System.out.println("-F" + mock);
+			Gson gson = new Gson();
 			HttpRequest httpRequest = HttpRequest.newBuilder()
 					.GET()
 					.uri(URI.create(OPEN_METEO_API_URL))
