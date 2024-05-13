@@ -53,13 +53,13 @@ public class ApiHandler implements RequestHandler<Object, String> {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			Gson gson = new Gson();
+			System.out.println("Some test " + StringUtils.EMPTY);
 			HttpRequest httpRequest = HttpRequest.newBuilder()
 					.GET()
 					.uri(URI.create(OPEN_METEO_API_URL))
 					.build();
 
 			HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
 
 			return httpResponse.body().replaceAll("\\\"", "\"");
 			// For simplicity, we are putting the en"tire response into the body. In a real application, you'd probably parse the response and format it nicely.
@@ -69,6 +69,6 @@ public class ApiHandler implements RequestHandler<Object, String> {
 			resultMap.put("statusCode", 500);
 			resultMap.put("body", "Error while retrieving the weather forecast: " + e.getMessage());
 		}
-		return "resultMap";
+		throw new RuntimeException();
 	}
 }
