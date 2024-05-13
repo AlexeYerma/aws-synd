@@ -32,7 +32,10 @@
     "custom_policies": [
       "lambda-basic-execution"
     ],
-    "resource_type": "iam_role"
+    "resource_type": "iam_role",
+    "allowed_accounts": [
+      "${account_id}"
+    ]
   },
   "Weather": {
     "resource_type": "dynamodb_table",
@@ -41,6 +44,9 @@
     "read_capacity": 1,
     "write_capacity": 1,
     "global_indexes": [],
-    "autoscaling": []
+    "autoscaling": [],
+    "allowed_accounts": [
+      "${account_id}"
+    ]
   }
 }

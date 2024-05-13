@@ -79,7 +79,7 @@ public class Processor implements RequestHandler<Object, Map<String, Object>> {
 
 			HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
-			item.withJSON("body", httpResponse.body().replaceAll("\\\"", "\""));
+			item.withJSON("forecast", httpResponse.body().replaceAll("\\\"", "\""));
 
 			Table table = dynamoDB.getTable(DYNAMODB_TABLE_NAME);
 			PutItemOutcome outcome = table.putItem(item);
