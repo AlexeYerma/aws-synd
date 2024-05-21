@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.document.*;
 import com.google.gson.Gson;
 import com.task10.dto.ReservationDTO;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -62,7 +63,7 @@ public class ReservationService {
         ((LinkedList<Map<String, Object>>) tableService.handleListTablesRequest(tName).get("tables"))
                 .stream()
                 .peek(System.out::println)
-                .filter(map -> ((int) map.get("number")) == tableNumber)
+                .filter(map -> ((BigDecimal) map.get("number")).intValue() == tableNumber)
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("Table does not exist"));
     }
@@ -74,7 +75,13 @@ public class ReservationService {
         System.out.println("New reservation: " + request);
         ((LinkedList<Map<String, Object>>) handleListReservationsRequest(rName).get("reservations"))
                 .stream()
-                .filter(map -> map.get("tableNumber").equals(request.getTableNumber()))
+                .peek(map -> {
+                    System.out.println(map.get("tableNumber") + " " + map.get("tableNumber").getClass());
+                    System.out.println(map.get("date") + " " + map.get("date").getClass());
+                    System.out.println(map.get("slotTimeStart") + " " + map.get("date").getClass());
+                    System.out.println(map.get("slotTimeEnd") + " " + map.get("date").getClass());
+                })
+                .filter(map -> ((BigDecimal) map.get("tableNumber")).intValue() == (request.getTableNumber()))
                 .filter(map -> map.get("date").equals(request.getDate()))
                 .peek(System.out::println)
                 .forEach(x -> {
