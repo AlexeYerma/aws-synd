@@ -1,8 +1,6 @@
 package com.task10.dto;
 
-import java.util.Objects;
-
-public class Reservation {
+public class ReservationDTO {
     private int tableNumber;
     private String clientName;
     private String phoneNumber;
@@ -10,10 +8,10 @@ public class Reservation {
     private String slotTimeStart;
     private String slotTimeEnd;
 
-    public Reservation() {
+    public ReservationDTO() {
     }
 
-    public Reservation(int tableNumber, String clientName, String phoneNumber, String date, String slotTimeStart, String slotTimeEnd){
+    public ReservationDTO(int tableNumber, String clientName, String phoneNumber, String date, String slotTimeStart, String slotTimeEnd){
         this.tableNumber = tableNumber;
         this.clientName = clientName;
         this.phoneNumber = phoneNumber;

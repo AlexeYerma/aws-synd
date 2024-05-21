@@ -1,6 +1,6 @@
 package com.task10.dto;
 
-public class TableRequest {
+public class TableDTO {
     private int id;
     private int number;
     private int places;
@@ -8,11 +8,11 @@ public class TableRequest {
     private int minOrder;
 
     //Default constructor
-    public TableRequest() {
+    public TableDTO() {
     }
 
     //All-args constructor
-    public TableRequest(int id, int number, int places, Boolean isVip, int minOrder){
+    public TableDTO(int id, int number, int places, Boolean isVip, int minOrder){
         this.id = id;
         this.number = number;
         this.places = places;

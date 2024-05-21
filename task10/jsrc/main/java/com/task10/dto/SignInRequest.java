@@ -1,4 +1,4 @@
-package com.task10;
+package com.task10.dto;
 
 public class SignInRequest {
     private String email;
