@@ -37,7 +37,7 @@ public class ReservationService {
         System.out.println("ReservationPostRequest = " + request);
         UUID uuid = UUID.randomUUID();
         Item item = new Item();
-        item.withString("reservationId", uuid.toString());
+        item.withString("id", uuid.toString());
         item.withInt("tableNumber", request.getTableNumber());
         item.withString("clientName", request.getClientName());
         item.withString("phoneNumber", request.getPhoneNumber());
