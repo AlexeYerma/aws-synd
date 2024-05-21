@@ -54,7 +54,7 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 						result = processTables(httpMethod, request.getBody(), tablesName);
 						break;
 					case "/reservations":
-						result = processReservations(httpMethod, request.getBody(), reservationName);
+						result = processReservations(httpMethod, request.getBody(), reservationName, tablesName);
 						break;
 					default:
 						throw new UnsupportedOperationException("Operation " +
@@ -80,10 +80,10 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 				tableService.handleCreateTableRequest(body, name);
 	}
 
-	private Map<String, Object> processReservations(String httpMethod, String body, String name) {
+	private Map<String, Object> processReservations(String httpMethod, String body, String rName, String tName) {
 		return httpMethod.equals("GET") ?
-				reservationService.handleListReservationsRequest(name) :
-				reservationService.handleCreateReservationRequest(body, name);
+				reservationService.handleListReservationsRequest(rName) :
+				reservationService.handleCreateReservationRequest(body, rName, tName);
 	}
 
 	private Map<String, Object> processSignin(String body, String functionName) {
