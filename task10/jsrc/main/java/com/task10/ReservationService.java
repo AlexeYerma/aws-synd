@@ -58,11 +58,13 @@ public class ReservationService {
     }
 
     private void checkTableExist(int tableNumber, String tName) {
-        long number = tableNumber;
         System.out.println("Checking reservation tale");
-        var table = tableService.getTable(number, tName);
-        System.out.println("Existing item: " + table);
-        if ((table.containsKey("id"))) throw new RuntimeException();
+        ((LinkedList<Map<String, Object>>) tableService.handleListTablesRequest(tName).get("tables"))
+                .stream()
+                .peek(System.out::println)
+                .filter(map -> ((int) map.get("number")) == tableNumber)
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("Table does not exist"));
     }
 
     private void checkOverlapping(ReservationDTO request, String rName) {
@@ -74,6 +76,7 @@ public class ReservationService {
                 .stream()
                 .filter(map -> map.get("tableNumber").equals(request.getTableNumber()))
                 .filter(map -> map.get("date").equals(request.getDate()))
+                .peek(System.out::println)
                 .forEach(x -> {
                     System.out.println(x);
                     LocalTime slotStart = LocalTime.parse(x.get("slotTimeStart").toString());
