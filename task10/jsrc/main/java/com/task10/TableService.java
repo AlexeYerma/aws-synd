@@ -51,7 +51,7 @@ public class TableService {
         PutItemOutcome outcome = table.putItem(item);
         System.out.println("PutItem succeeded: " + outcome.getPutItemResult());
 
-        return Map.of("code", request.getId());
+        return Map.of("id", request.getId());
     }
 
     public Map<String, Object> getTable(Long tableId, String tableName) {
