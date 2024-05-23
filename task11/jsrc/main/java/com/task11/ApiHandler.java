@@ -41,8 +41,8 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 			Map<String, Object> result = null;
 			if (path.startsWith("/tables")
 			&& pathParameters != null
-					&& pathParameters.get("id") != null) {
-				var tableId = Long.valueOf(request.getPathParameters().get("id"));
+					&& pathParameters.get("tableId") != null) {
+				var tableId = Long.valueOf(request.getPathParameters().get("tableId"));
 				result = tableService.getTable(tableId, tablesName);
 			} else {
 				switch (path) {
